@@ -1,23 +1,17 @@
 import React from 'react';
-import {
-  View,
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  Text,
-  ScrollView,
-} from 'react-native';
+import {View, ActivityIndicator, Dimensions, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
 import {MoviePoster} from '../components/MoviePoster';
 // import movieDB from '../api/movieDB';
 // import {MovieDBNowPlaying} from '../interfaces/movieInterface';
 import {useMovies} from '../hooks/useMovies';
+import {HorizontalSlider} from '../components/HorizontalSlider';
 
 const {width: windowWidth} = Dimensions.get('window');
 
 export const HomeScreen = () => {
-  const {isLoading, currentMovies} = useMovies();
+  const {isLoading, currentMovies, popularMovies} = useMovies();
   const {top} = useSafeAreaInsets();
 
   // console.log(currentMovies[4]?.title);
@@ -41,10 +35,11 @@ export const HomeScreen = () => {
             renderItem={({item}) => <MoviePoster movie={item} />}
             sliderWidth={windowWidth}
             itemWidth={300}
+            inactiveSlideOpacity={0.9}
           />
         </View>
         {/* Películas populares */}
-        <View
+        {/* <View
           style={{
             backgroundColor: 'red',
             height: 250,
@@ -59,7 +54,9 @@ export const HomeScreen = () => {
             horizontal={true}
             showsHorizontalScrollIndicator={false}
           />
-        </View>
+        </View> */}
+        {/* <HorizontalSlider title="En cines" movies={currentMovies} /> */}
+        <HorizontalSlider title="Populares" movies={popularMovies} />
       </View>
     </ScrollView>
   );
