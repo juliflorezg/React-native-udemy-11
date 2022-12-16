@@ -15,7 +15,7 @@ export const useMovies = () => {
   useEffect(() => {
     // now-playing
     getMovies();
-  });
+  }, []);
 
   return {isLoading, currentMovies};
 };
