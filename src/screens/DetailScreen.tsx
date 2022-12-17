@@ -18,7 +18,7 @@ export const DetailScreen = ({route}: Props) => {
   console.log(movie.original_title);
   console.log(movie.id);
 
-  useMovieDetails(movie.id);
+  const {isLoading, cast, fullMovie} = useMovieDetails(movie.id);
 
   return (
     <ScrollView>
