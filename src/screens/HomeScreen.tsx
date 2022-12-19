@@ -8,6 +8,7 @@ import {MoviePoster} from '../components/MoviePoster';
 import {useMovies} from '../hooks/useMovies';
 import {HorizontalSlider} from '../components/HorizontalSlider';
 
+// get 'width' property from Dimensions and rename it as 'windowWidth'
 const {width: windowWidth} = Dimensions.get('window');
 
 export const HomeScreen = () => {
