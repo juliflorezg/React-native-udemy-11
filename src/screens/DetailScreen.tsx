@@ -2,24 +2,25 @@ import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {
   View,
+  Text,
   Image,
   StyleSheet,
   Dimensions,
   ScrollView,
   ActivityIndicator,
+  TouchableOpacity,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import {RootStackParams} from '../navigation/Navigation';
 // import {Movie} from '../interfaces/movieInterface';
-import {Text} from 'react-native';
 import {useMovieDetails} from '../hooks/useMovieDetails';
 import {MovieDetails} from '../components/MovieDetails';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const {height: screenHeight} = Dimensions.get('screen');
 
 interface Props extends StackScreenProps<RootStackParams, 'DetailScreen'> {}
 
-export const DetailScreen = ({route}: Props) => {
+export const DetailScreen = ({route, navigation}: Props) => {
   const movie = route.params;
   const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
@@ -46,6 +47,12 @@ export const DetailScreen = ({route}: Props) => {
       ) : (
         <MovieDetails fullMovie={fullMovie!} cast={cast} />
       )}
+      {/* Boton para regresar */}
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()}>
+        <Icon name="chevron-circle-left" color="black" size={40} />
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -82,5 +89,12 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
+  },
+  backButton: {
+    position: 'absolute',
+    top: screenHeight * 0.7 + 50,
+    right: 15,
+    zIndex: 999,
+    elevation: 9,
   },
 });
