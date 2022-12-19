@@ -1,11 +1,19 @@
 import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
-import {View, Image, StyleSheet, Dimensions, ScrollView} from 'react-native';
+import {
+  View,
+  Image,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {RootStackParams} from '../navigation/Navigation';
 // import {Movie} from '../interfaces/movieInterface';
 import {Text} from 'react-native';
 import {useMovieDetails} from '../hooks/useMovieDetails';
+import {MovieDetails} from '../components/MovieDetails';
 
 const {height: screenHeight} = Dimensions.get('screen');
 
@@ -20,6 +28,7 @@ export const DetailScreen = ({route}: Props) => {
 
   const {isLoading, cast, fullMovie} = useMovieDetails(movie.id);
 
+  console.log(isLoading);
   return (
     <ScrollView>
       <View style={styles.imageContainer}>
@@ -28,14 +37,15 @@ export const DetailScreen = ({route}: Props) => {
         </View>
       </View>
       {/* <Text>{movie.original_title}</Text> */}
-      <View style={styles.marginContainer}>
+      <View style={{...styles.marginContainer, marginBottom: 5}}>
         <Text style={styles.title}>{movie.title}</Text>
       </View>
-      <View style={styles.marginContainer}>
-        <Text>
-          <Icon name="star" size={30} color="#000" />;
-        </Text>
-      </View>
+
+      {isLoading ? (
+        <ActivityIndicator size={35} color="grey" style={{marginTop: 20}} />
+      ) : (
+        <MovieDetails fullMovie={fullMovie!} cast={cast} />
+      )}
     </ScrollView>
   );
 };
@@ -66,10 +76,10 @@ const styles = StyleSheet.create({
   },
   marginContainer: {
     marginHorizontal: 20,
-    marginVertical: 25,
+    marginVertical: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     color: 'black',
   },
