@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Cast} from '../interfaces/creditsInterface';
 import {FullMovie} from '../interfaces/movieInterface';
+import {CastItem} from './CastItem';
 
 interface Props {
   fullMovie: FullMovie;
@@ -52,6 +53,19 @@ export const MovieDetails = ({fullMovie, cast}: Props) => {
         </Text>
       </View>
       {/* casting */}
+      <View style={{marginTop: 10, marginBottom: 100}}>
+        <Text
+          style={{
+            fontSize: 20,
+            marginTop: 10,
+            fontWeight: 'bold',
+            color: 'black',
+            marginHorizontal: 20,
+          }}>
+          Cast{' '}
+        </Text>
+        <CastItem actor={cast[0]} />
+      </View>
     </>
   );
 };
