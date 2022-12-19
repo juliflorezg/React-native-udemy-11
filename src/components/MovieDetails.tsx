@@ -19,9 +19,11 @@ export const MovieDetails = ({fullMovie, cast}: Props) => {
           <Text style={{marginRight: 7}}>
             <Icon name="star" color="grey" size={16} />
           </Text>
-          <Text style={{marginRight: 7}}>{fullMovie.vote_average}</Text>
           <Text style={{marginRight: 7}}>
-            {fullMovie.genres.map(genre => genre.name).join(', ')}
+            {fullMovie.vote_average.toFixed(2)}
+          </Text>
+          <Text style={{marginRight: 7}}>
+            {fullMovie.genres.map(genre => genre.name).join(' - ')}
           </Text>
         </View>
 
@@ -45,7 +47,7 @@ export const MovieDetails = ({fullMovie, cast}: Props) => {
           }}>
           Budget
         </Text>
-        <Text style={{fontSize: 16, color: '#003914'}}>
+        <Text style={{fontSize: 16, color: '#007629'}}>
           {new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',

@@ -19,7 +19,13 @@ export const HorizontalSlider = ({title = '', movies}: Props) => {
         justifyContent: 'center',
       }}>
       {title && (
-        <Text style={{fontSize: 30, fontWeight: 'bold', marginLeft: 15}}>
+        <Text
+          style={{
+            fontSize: 30,
+            fontWeight: 'bold',
+            marginLeft: 15,
+            color: 'black',
+          }}>
           {title}
         </Text>
       )}
