@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, ActivityIndicator, Dimensions, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
@@ -25,11 +25,16 @@ export const HomeScreen = () => {
     const movie = nowPlaying[index];
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
     const [primary = 'green', secondary = 'black'] = await getImageColors(uri);
-
     setMainColors({primary, secondary});
     // setPrimaryColor(primary);
     // setSecondaryColor(secondary);
   };
+
+  useEffect(() => {
+    if (nowPlaying.length > 0) {
+      getPosterColors(0);
+    }
+  }, [nowPlaying]);
 
   // console.log(currentMovies[4]?.title);
 
