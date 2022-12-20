@@ -7,6 +7,7 @@ import {MoviePoster} from '../components/MoviePoster';
 // import {MovieDBNowPlaying} from '../interfaces/movieInterface';
 import {useMovies} from '../hooks/useMovies';
 import {HorizontalSlider} from '../components/HorizontalSlider';
+import {GradientBackground} from '../components/GradientBackground';
 
 // get 'width' property from Dimensions and rename it as 'windowWidth'
 const {width: windowWidth} = Dimensions.get('window');
@@ -26,41 +27,25 @@ export const HomeScreen = () => {
   }
 
   return (
-    <ScrollView>
-      <View style={{marginTop: top + 20}}>
-        {/* <MoviePoster movie={currentMovies[4]} /> */}
-        {/* Carrusel principal */}
-        <View style={{height: 440}}>
-          <Carousel
-            data={nowPlaying}
-            renderItem={({item}) => <MoviePoster movie={item} />}
-            sliderWidth={windowWidth}
-            itemWidth={300}
-            inactiveSlideOpacity={0.9}
-          />
+    <GradientBackground>
+      <ScrollView>
+        <View style={{marginTop: top + 20}}>
+          {/* <MoviePoster movie={currentMovies[4]} /> */}
+          {/* Carrusel principal */}
+          <View style={{height: 440}}>
+            <Carousel
+              data={nowPlaying}
+              renderItem={({item}) => <MoviePoster movie={item} />}
+              sliderWidth={windowWidth}
+              itemWidth={300}
+              inactiveSlideOpacity={0.9}
+            />
+          </View>
+          <HorizontalSlider title="Popular" movies={popular} />
+          <HorizontalSlider title="Top Rated" movies={topRated} />
+          <HorizontalSlider title="Upcoming" movies={upcoming} />
         </View>
-        {/* Películas populares */}
-        {/* <View
-          style={{
-            backgroundColor: 'red',
-            height: 250,
-          }}>
-          <Text style={{fontSize: 30, fontWeight: 'bold'}}>En Cines</Text>
-          <FlatList
-            data={currentMovies}
-            renderItem={({item}: any) => (
-              <MoviePoster movie={item} width={150} height={200} />
-            )}
-            keyExtractor={item => String(item.id)}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-          />
-        </View> */}
-        {/* <HorizontalSlider title="En cines" movies={currentMovies} /> */}
-        <HorizontalSlider title="Popular" movies={popular} />
-        <HorizontalSlider title="Top Rated" movies={topRated} />
-        <HorizontalSlider title="Upcoming" movies={upcoming} />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </GradientBackground>
   );
 };
