@@ -21,13 +21,13 @@ interface ContextProps {
 
 export const GradientContextProvider: React.FC<Props> = ({children}: Props) => {
   const [previousColors, setPreviousColors] = useState<ImageColors>({
-    primary: 'crimson',
-    secondary: 'wheat',
+    primary: 'transparent',
+    secondary: 'transparent',
   });
 
   const [colors, setColors] = useState<ImageColors>({
-    primary: 'crimson',
-    secondary: 'wheat',
+    primary: 'transparent',
+    secondary: 'transparent',
   });
 
   const setMainColors = (colorsObj: ImageColors) => {
