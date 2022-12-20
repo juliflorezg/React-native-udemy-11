@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, ActivityIndicator, Dimensions, ScrollView} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Carousel from 'react-native-snap-carousel';
@@ -8,7 +8,7 @@ import {MoviePoster} from '../components/MoviePoster';
 import {useMovies} from '../hooks/useMovies';
 import {HorizontalSlider} from '../components/HorizontalSlider';
 import {GradientBackground} from '../components/GradientBackground';
-import ImageColors from 'react-native-image-colors';
+import {getImageColors} from '../helpers/getColors';
 
 // get 'width' property from Dimensions and rename it as 'windowWidth'
 const {width: windowWidth} = Dimensions.get('window');
@@ -16,17 +16,16 @@ const {width: windowWidth} = Dimensions.get('window');
 export const HomeScreen = () => {
   const {isLoading, nowPlaying, popular, topRated, upcoming} = useMovies();
   const {top} = useSafeAreaInsets();
+  const [primaryColor, setPrimaryColor] = useState<string | undefined>();
+  const [secondaryColor, setSecondaryColor] = useState<string | undefined>();
 
   const getPosterColors = async (index: number) => {
     const movie = nowPlaying[index];
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+    const [primary, secondary] = await getImageColors(uri);
 
-    const imageColors = await ImageColors.getColors(uri, {
-      fallback: '#75cedb',
-      quality: 'high',
-    });
-
-    console.log(imageColors);
+    setPrimaryColor(primary);
+    setSecondaryColor(secondary);
   };
 
   // console.log(currentMovies[4]?.title);
@@ -40,7 +39,7 @@ export const HomeScreen = () => {
   }
 
   return (
-    <GradientBackground>
+    <GradientBackground primary={primaryColor} secondary={secondaryColor}>
       <ScrollView>
         <View style={{marginTop: top + 20}}>
           {/* <MoviePoster movie={currentMovies[4]} /> */}
